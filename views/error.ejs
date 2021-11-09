@@ -1,0 +1,10 @@
+<!-- Mensage es el objeto de flash --> 
+<% if (messages.error) { %>
+    <p style="color:red">
+      <%- messages.error %></p>
+    <% } %>
+      
+    <% if (messages.success) { %>
+        <p style="color:green">
+          <%- messages.success %></p>
+    <% } %>
