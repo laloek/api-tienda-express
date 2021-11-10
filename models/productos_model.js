@@ -110,13 +110,13 @@ obtenerConFotos(){
 
     return new Promise((resolve,reject) => {
 
-        conexion.query('select *  form productos',
+        conexion.query('select *  from productos',
         async(err,resultados) =>{
 
             if(err)reject(err)
             else {
                 for(let x=0;x<resultados.length;x++){
-                    resultados[x].foto= await this.obtenerPrimerFoto(resultados[x].id)
+                    resultados[x].foto= await this.obtenerPrimerFoto(resultados[x].id_productos)
                 }
 
                 resolve(resultados)

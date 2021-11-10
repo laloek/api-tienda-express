@@ -37,13 +37,18 @@ router.get('/', function(req, res, next){
 })
  
 //display login page
-router.get('/login', function(req, res, next){    
+router.get('/login', function (req, res, next) {
     // render to views/user/add.ejs
     res.render('auth/login', {
         title: 'Login',
         email: '',
-        password: ''    
+        password: ''
     })
+})
+
+router.get('/logout', function (req, res, next) {
+    req.session.loggedIn = false,
+    res.redirect('/auth/login')
 })
  
 
