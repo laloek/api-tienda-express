@@ -13,7 +13,7 @@ insertar(nombre,descripcion,precio){
         conexion.query('insert into productos (nombre,descripcion,precio)'+
        ' values (?,?,?)',[nombre,descripcion,precio],(err,resultado) => {
            if (err)reject(err);
-           else resolve(resultado)
+           else resolve(resultado.insertId)
        })
     })
 
@@ -101,7 +101,13 @@ obtenerPrimerFoto(idProducto){
         [idProducto],
         (err, resultados) => {
           if (err) reject(err);
-          else resolve(resultados[0].foto);
+          else {
+           if( resultados.length>0){
+            resolve(resultados[0].foto);
+        }else{
+            resolve('nodisp.png');
+        }
+        }
         });
     })
 
@@ -116,9 +122,15 @@ obtenerConFotos(){
             if(err)reject(err)
             else {
                 for(let x=0;x<resultados.length;x++){
-                    resultados[x].foto= await this.obtenerPrimerFoto(resultados[x].id_productos)
+                    fotoAux=await this.obtenerPrimerFoto(resultados[x].id_productos)
+                
+                    if(fotoAux){
+                        resultados[x].foto= fotoAux
+                    }else{
+                        resultados[x].foto= 'nodisp.png'
+                    }
+                   
                 }
-
                 resolve(resultados)
             }
         }

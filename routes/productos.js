@@ -65,10 +65,7 @@ router.get('/eliminar/:id',  function(req,res,next){
     //200 //500
     if(req.session.loggedIn){
     pm.eliminar(req.params.id).then(()=>{
-        pm.obtener().then(productos => {
-            req.flash('success', 'Borrado correcto')
-            res.render('productos/ver', { productos: productos, })
-        })
+        res.status(200).send('Borrado correcto')
     }).catch(err => {
         //Cambiar a mensaje flash enviado a un render
         res.status(500).send('Error al borrar')
@@ -127,10 +124,7 @@ router.post('/actualizar',  function(req,res,next){
         return res.status(500).send('No hay suficientes datos')
     }
     pm.actualizar(id,nombre,precio).then(()=>{
-        pm.obtener().then(productos => {
-            req.flash('success', 'Actualizacion exitosa')
-            res.render('productos/ver', { productos: productos, })
-        })
+        return res.status(200).send('Actualizacion exitosa')
 
     }).catch(err=>{
         return res.status(500).send('No hay suficientes datos')
